@@ -3,10 +3,13 @@ package com.example.project_1;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.res.Configuration;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,10 +31,6 @@ public class MainActivity extends AppCompatActivity {
     ShapeModel shapeModel;
     TextView tv_dialog;
     Button bt_pink, bt_blue;
-    long timeInMilliseconds = 0L;
-    long timeSwapBuff = 0L;
-    long updatedTime = 0L;
-    long startTime = 0L;
     Handler handler = new Handler();
 
     @Override
@@ -45,6 +44,11 @@ public class MainActivity extends AppCompatActivity {
         bt_blue = findViewById(R.id.bt_blue);
         bt_pink = findViewById(R.id.bt_pink);
         init();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
     }
 
     private void init() {
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         shapeModelList.remove(0);
                         result = true;
                     } else {
-                        tv_dialog.setText("Please press hold 2 second time.");
+                        tv_dialog.setText("โปรดกดค้างไว้ 2 วินาที");
                         result = false;
                         if (!dialog.isShowing()) {
                             dialog.show();
@@ -90,8 +94,10 @@ public class MainActivity extends AppCompatActivity {
                 final Dialog dialog = getDialog();
                 keyColor = shapeModelList.get(0).getKey_Color();
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    //time = event.getEventTime();
-                    if (keyColor.equals("PI")) {
+                    time = event.getDownTime();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    time = event.getEventTime() - time;
+                    if (time > 1999 && keyColor.equals("PI")) {
                         shapeModelList.remove(0);
                         result = true;
                     } else {
@@ -112,11 +118,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private boolean ButtonPress(){
-
-        return false;
-    }
-
     private Dialog getDialog() {
         final Dialog dialog = new Dialog(MainActivity.this, android.R.style.Theme_DeviceDefault_NoActionBar_Fullscreen);
         final View dialogView = LayoutInflater.from(getApplicationContext()).inflate(R.layout.dialog_alert, null);
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         return dialog;
     }
 
-    boolean isDo = false;
+    boolean isDo;
 
     private List RandomColor() {
         shapeModelList = new ArrayList<>();
