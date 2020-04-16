@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:background="@color/gray">
+
+    <LinearLayout
+        android:id="@+id/line1"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:background="@android:color/white">
+            <Button
+                android:id="@+id/bt_pink"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:gravity="center_horizontal"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/circle_button_pink" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.35"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_horizontal|bottom|right">
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_play_arrow_black_24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="160dp"
+            android:layout_height="match_parent">
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <com.example.project_1.CustomView1
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+            </FrameLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.35"
+            android:orientation="horizontal"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:gravity="center_horizontal|bottom|left">
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="40dp"
+                android:background="@drawable/ic_play_arrow_black_24dp"
+                android:rotation="180"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.2"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:background="@android:color/white">
+            <Button
+                android:id="@+id/bt_blue"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/circle_button_light_blue" />
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
+

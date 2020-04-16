@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="gray">#DDDDDD</color>
+    <color name="gray2">#808080</color>
+    <item name="pink" type="color">#FFB8E8</item>
+    <item name="light_blue" type="color">#B9F3F6</item>
+    <item name="purple" type="color">#E46BF4</item>
+    <color name="transparentBlack">#A1939393</color>
+    <color name="transparentWhite">#E3FFFFFF</color>
+    
+    <integer-array name="BlockColor">
+        <item>@color/pink</item>
+        <item>@color/light_blue</item>
+    </integer-array>
+</resources>
