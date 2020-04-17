@@ -63,15 +63,15 @@ public class CustomView1 extends View {
 
             RectF rect = new RectF();
             rect.left = 30;
-            rect.top = screenHeight - (250 * i);
+            rect.top = screenHeight - (220 * i);
             rect.right = screenWidth - 30;
             rect.bottom = rect.top + 200;
             if (i < colorList.size() - 1) {
                 canvas.drawRoundRect(rect, cornorRadius, cornorRadius, mPaintFill);
                 canvas.drawRoundRect(rect, cornorRadius, cornorRadius, mPaintStroke);
             } else {
-                drawRhombus(canvas,mPaintFill,screenWidth/2,screenHeight - (250 * i),400);
-                drawRhombus(canvas,mPaintStroke,screenWidth/2,screenHeight - (250 * i),400);
+                drawRhombus(canvas,mPaintFill,screenWidth/2,screenHeight - (220 * i),410);
+                drawRhombus(canvas,mPaintStroke,screenWidth/2,screenHeight - (220 * i),410);
             }
         }
     }

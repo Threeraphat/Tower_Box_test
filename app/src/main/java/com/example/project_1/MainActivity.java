@@ -24,13 +24,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
 
     public static ArrayList<ShapeModel> shapeModelList;
     String keyColor;
     ShapeModel shapeModel;
     TextView tv_dialog;
     Button bt_pink, bt_blue;
+    boolean state_bt1, state_bt2;
+    Dialog dialog;
     Handler handler = new Handler();
 
     @Override
@@ -46,31 +48,35 @@ public class MainActivity extends AppCompatActivity {
         init();
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
     private void init() {
         RandomColor();
+        dialog = getDialog();
         bt_blue.setOnTouchListener(new View.OnTouchListener() {
-            boolean result;
-            long time = 0L;
-
+            long startTime = 0L;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                final Dialog dialog = getDialog();
                 keyColor = shapeModelList.get(0).getKey_Color();
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    time = event.getDownTime();
+                    startTime = System.currentTimeMillis();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    time = event.getEventTime() - time;
-                    if (time > 1999 && keyColor.equals("LB")) {
+                    long sumTime = System.currentTimeMillis() - startTime;
+                    if (sumTime > 1999 && keyColor.equals("LB")) {
                         shapeModelList.remove(0);
-                        result = true;
+                        state_bt1 = true;
+                    } else if(!keyColor.equals("LB")){
+                        tv_dialog.setText("กดปุ่มสีให้ตรงกัน");
+                        state_bt1 = false;
+                        if (!dialog.isShowing()) {
+                            dialog.show();
+                        }
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                dialog.dismiss();
+                            }
+                        }, 1500);
                     } else {
-                        tv_dialog.setText("โปรดกดค้างไว้ 2 วินาที");
-                        result = false;
+                        tv_dialog.setText("กดปุ่มค้างไว้ 2 วินาทีเพื่อทำลาย Block");
+                        state_bt1 = false;
                         if (!dialog.isShowing()) {
                             dialog.show();
                         }
@@ -81,28 +87,37 @@ public class MainActivity extends AppCompatActivity {
                         }, 1500);
                     }
                 }
-                return result;
+                return state_bt1;
             }
         });
 
         bt_pink.setOnTouchListener(new View.OnTouchListener() {
-            boolean result;
-            long time = 0L;
+            long startTime = 0L;
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                final Dialog dialog = getDialog();
                 keyColor = shapeModelList.get(0).getKey_Color();
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    time = event.getDownTime();
+                    startTime = System.currentTimeMillis();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    time = event.getEventTime() - time;
-                    if (time > 1999 && keyColor.equals("PI")) {
+                    long sumTime = System.currentTimeMillis() - startTime;
+                    if (sumTime > 1999 && keyColor.equals("PI")) {
                         shapeModelList.remove(0);
-                        result = true;
+                        state_bt2 = true;
+                    } else if(!keyColor.equals("PI")){
+                        tv_dialog.setText("กดปุ่มสีให้ตรงกัน");
+                        state_bt2 = false;
+                        if (!dialog.isShowing()) {
+                            dialog.show();
+                        }
+                        handler.postDelayed(new Runnable() {
+                            public void run() {
+                                dialog.dismiss();
+                            }
+                        }, 1500);
                     } else {
-                        tv_dialog.setText("Please press hold 2 second time.");
-                        result = false;
+                        tv_dialog.setText("กดปุ่มค้างไว้ 2 วินาทีเพื่อทำลาย Block");
+                        state_bt2 = false;
                         if (!dialog.isShowing()) {
                             dialog.show();
                         }
@@ -113,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                         }, 1500);
                     }
                 }
-                return result;
+                return state_bt2;
             }
         });
     }
